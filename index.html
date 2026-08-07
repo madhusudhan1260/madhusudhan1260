@@ -672,6 +672,13 @@ a:focus-visible, button:focus-visible {
 .gh-card img { display: block; width: 100%; max-width: 760px; height: auto; }
 .gh-card.wide img { max-width: 100%; }
 
+/* The contribution grid is served with hard-coded near-white empty
+   cells and no background parameter, so on the dark ground it lands as
+   a glaring white slab. Inverting and rotating the hue back darkens the
+   empty cells while leaving the filled ones their original colour. */
+.gh-card[data-invert] img { filter: invert(0.92) hue-rotate(180deg); }
+:root[data-theme="light"] .gh-card[data-invert] img { filter: none; }
+
 /* if a third-party widget dies, the card removes itself rather than
    leaving a broken image — see the img onerror handlers */
 .gh-card.dead { display: none; }
@@ -1022,7 +1029,7 @@ a:focus-visible, button:focus-visible {
              src="https://streak-stats.demolab.com?user=madhusudhan1260&hide_border=true&background=00000000&stroke=00a8cc&ring=00a8cc&fire=ff6b9d&currStreakNum=8aa0a8&sideNums=8aa0a8&currStreakLabel=00a8cc&sideLabels=8aa0a8&dates=6d838c" />
       </div>
 
-      <div class="gh-card wide reveal" data-gh>
+      <div class="gh-card wide reveal" data-gh data-invert>
         <span class="tag">Contribution grid · past year</span>
         <img alt="GitHub contribution grid for the past year"
              loading="lazy"
