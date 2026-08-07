@@ -26,25 +26,31 @@
    someone else's server went down.
    ================================================================== */
 
-/* ---------- tokens ---------- */
+/* ---------- tokens ----------
+   Dark is the design, not a preference: the hero canvas, the glows and
+   the chart palette were all built for a dark ground, and the light set
+   below exists as an opt-out rather than an equal twin. So the default
+   is dark for everyone regardless of OS setting, and the toggle stamps
+   data-theme to override it. */
 :root {
-  --paper:      #edf1f2;
-  --paper-2:    #e3e9eb;
-  --panel:      #f7f9fa;
-  --ink:        #0b1418;
-  --ink-2:      #3d4f56;
-  --ink-3:      #6b7f87;
-  --rule:       #c4d0d4;
-  --rule-soft:  #d8e0e3;
-  --cyan:       #00718a;
-  --cyan-lit:   #00a8cc;
-  --magenta:    #b81f57;
-  --cyan-wash:  rgba(0, 168, 204, 0.10);
-  --magenta-wash: rgba(184, 31, 87, 0.09);
-  --glow:       rgba(0, 168, 204, 0.30);
-  --dot:        rgba(11, 20, 24, 0.13);
-  --wash-a:     rgba(0, 168, 204, 0.16);
-  --wash-b:     rgba(124, 58, 237, 0.13);
+  --paper:      #070d11;
+  --paper-2:    #0c161b;
+  --panel:      #0d181e;
+  --panel-2:    #101f27;
+  --ink:        #e2edf1;
+  --ink-2:      #9db0b8;
+  --ink-3:      #6d838c;
+  --rule:       #24373f;
+  --rule-soft:  #182830;
+  --cyan:       #3fc9e4;
+  --cyan-lit:   #00c2ff;
+  --magenta:    #ff6b9d;
+  --cyan-wash:  rgba(0, 194, 255, 0.12);
+  --magenta-wash: rgba(255, 107, 157, 0.12);
+  --glow:       rgba(0, 194, 255, 0.42);
+  --dot:        rgba(154, 190, 205, 0.13);
+  --wash-a:     rgba(0, 194, 255, 0.13);
+  --wash-b:     rgba(124, 58, 237, 0.16);
 
   --font-display: "IBM Plex Sans Condensed", "Helvetica Neue", Arial, sans-serif;
   --font-body:    "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -53,46 +59,14 @@
   --shell: 1060px;
   --step:  clamp(18px, 3.2vw, 30px);
 
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #070d11;  --paper-2: #0c161b;  --panel: #0d181e;
-    --ink: #dae5e9;    --ink-2: #9db0b8;    --ink-3: #6d838c;
-    --rule: #24373f;   --rule-soft: #182830;
-    --cyan: #3fc9e4;   --cyan-lit: #00c2ff;
-    --magenta: #ff6b9d;
-    --cyan-wash: rgba(0, 194, 255, 0.12);
-    --magenta-wash: rgba(255, 107, 157, 0.12);
-    --glow: rgba(0, 194, 255, 0.42);
-    --dot: rgba(154, 190, 205, 0.13);
-    --wash-a: rgba(0, 194, 255, 0.13);
-    --wash-b: rgba(124, 58, 237, 0.16);
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
-  --paper: #070d11;  --paper-2: #0c161b;  --panel: #0d181e;
-  --ink: #dae5e9;    --ink-2: #9db0b8;    --ink-3: #6d838c;
-  --rule: #24373f;   --rule-soft: #182830;
-  --cyan: #3fc9e4;   --cyan-lit: #00c2ff;
-  --magenta: #ff6b9d;
-  --cyan-wash: rgba(0, 194, 255, 0.12);
-  --magenta-wash: rgba(255, 107, 157, 0.12);
-  --glow: rgba(0, 194, 255, 0.42);
-  --dot: rgba(154, 190, 205, 0.13);
-  --wash-a: rgba(0, 194, 255, 0.13);
-  --wash-b: rgba(124, 58, 237, 0.16);
   color-scheme: dark;
 }
+
 :root[data-theme="light"] {
-  --paper: #edf1f2;  --paper-2: #e3e9eb;  --panel: #f7f9fa;
+  --paper: #edf1f2;  --paper-2: #e3e9eb;  --panel: #f7f9fa;  --panel-2: #eef3f5;
   --ink: #0b1418;    --ink-2: #3d4f56;    --ink-3: #6b7f87;
   --rule: #c4d0d4;   --rule-soft: #d8e0e3;
-  --cyan: #00718a;   --cyan-lit: #00a8cc;
-  --magenta: #b81f57;
+  --cyan: #00718a;   --cyan-lit: #00a8cc;  --magenta: #b81f57;
   --cyan-wash: rgba(0, 168, 204, 0.10);
   --magenta-wash: rgba(184, 31, 87, 0.09);
   --glow: rgba(0, 168, 204, 0.30);
@@ -101,6 +75,8 @@
   --wash-b: rgba(124, 58, 237, 0.13);
   color-scheme: light;
 }
+
+:root[data-theme="dark"] { color-scheme: dark; }
 
 /* ---------- base ---------- */
 * { box-sizing: border-box; }
@@ -761,6 +737,59 @@ a:focus-visible, button:focus-visible {
   50%      { background-position: 0 0, 100% 50%; }
 }
 
+/* ============ SCROLLSPY ============ */
+.strip-nav a.active { color: var(--cyan); }
+.strip-nav a.active::after { transform: scaleX(1); transform-origin: left; }
+
+/* ============ PROJECT FILTER ============ */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+
+.filter {
+  font-family: var(--font-mono);
+  font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 6px 13px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: color 0.16s, border-color 0.16s, background 0.16s;
+}
+.filter:hover { color: var(--cyan); border-color: var(--cyan); }
+.filter[aria-pressed="true"] {
+  color: var(--paper);
+  background: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.card.hidden { display: none; }
+
+/* ============ COPY BUTTON ============ */
+.copy-row { display: flex; align-items: center; gap: 8px; }
+
+.copy-btn {
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 4px 9px;
+  cursor: pointer;
+  transition: color 0.16s, border-color 0.16s;
+}
+.copy-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+.copy-btn.done { color: var(--magenta); border-color: var(--magenta); }
+
+/* ============ LIVE REPO META ============ */
+.meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.meta.pending { opacity: 0.45; }
+
 /* ============ BACK TO TOP ============ */
 .totop {
   position: fixed; right: 20px; bottom: 20px; z-index: 30;
@@ -1014,48 +1043,56 @@ a:focus-visible, button:focus-visible {
     <div class="sec-head reveal">
       <h2>Selected Work</h2><span class="rule"></span><span class="count">04 &nbsp;·&nbsp; 6 repositories</span>
     </div>
+    <div class="filters reveal" role="group" aria-label="Filter projects by area">
+      <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="filter" type="button" data-filter="aviation" aria-pressed="false">Aviation</button>
+      <button class="filter" type="button" data-filter="security" aria-pressed="false">Security</button>
+      <button class="filter" type="button" data-filter="frontend" aria-pressed="false">Frontend</button>
+      <button class="filter" type="button" data-filter="hackathon" aria-pressed="false">Hackathon</button>
+    </div>
+
     <div class="grid">
 
-      <article class="card flagship reveal">
+      <article data-repo="Navlog-convertor-website-2.0" data-area="aviation" class="card flagship reveal">
         <span class="no">Aviation · Flagship</span>
         <h3><a href="https://github.com/madhusudhan1260/Navlog-convertor-website-2.0">NavLog Converter 2.0</a></h3>
         <p>Parses ForeFlight HTML exports into structured JSON, then renders operator-specific operational flight plans as print-ready PDFs — fuel policy, alternates, enroute winds and ATC plan.</p>
-        <div class="foot"><span class="lang">Python</span><span class="lang">React</span><span class="go">Repo ↗</span></div>
+        <div class="foot"><span class="lang">Python</span><span class="lang">React</span><span class="meta pending" data-updated>—</span><span class="go">Repo ↗</span></div>
       </article>
 
-      <article class="card reveal">
+      <article data-repo="Navlog_Project" data-area="aviation" class="card reveal">
         <span class="no">Aviation</span>
         <h3><a href="https://github.com/madhusudhan1260/Navlog_Project">NavLog Project</a></h3>
         <p>The original converter: extracts ForeFlight flight data and generates airline-style Operational Flight Plans covering route, fuel, waypoints, airport data and ATC details.</p>
-        <div class="foot"><span class="lang">Python</span><span class="go">Repo ↗</span></div>
+        <div class="foot"><span class="lang">Python</span><span class="meta pending" data-updated>—</span><span class="go">Repo ↗</span></div>
       </article>
 
-      <article class="card reveal">
+      <article data-repo="Codex-Traffic-management-system-" data-area="hackathon" class="card reveal">
         <span class="no">Hackathon</span>
         <h3><a href="https://github.com/madhusudhan1260/Codex-Traffic-management-system-">Traffic Management System</a></h3>
         <p>A traffic monitoring and signal-control concept built for the CodeVeda hackathon, focused on responsive control logic and a clear operator interface.</p>
-        <div class="foot"><span class="lang">HTML</span><span class="go">Repo ↗</span></div>
+        <div class="foot"><span class="lang">HTML</span><span class="meta pending" data-updated>—</span><span class="go">Repo ↗</span></div>
       </article>
 
-      <article class="card reveal">
+      <article data-repo="javascript-cryptography-lab" data-area="security" class="card reveal">
         <span class="no">Security</span>
         <h3><a href="https://github.com/madhusudhan1260/javascript-cryptography-lab">JavaScript Cryptography Lab</a></h3>
         <p>Core cryptography algorithms, hashing logic and key operations implemented from first principles in modern JavaScript.</p>
-        <div class="foot"><span class="lang">JavaScript</span><span class="go">Repo ↗</span></div>
+        <div class="foot"><span class="lang">JavaScript</span><span class="meta pending" data-updated>—</span><span class="go">Repo ↗</span></div>
       </article>
 
-      <article class="card reveal">
+      <article data-repo="python-cryptography" data-area="security" class="card reveal">
         <span class="no">Security</span>
         <h3><a href="https://github.com/madhusudhan1260/python-cryptography">Python Cryptography</a></h3>
         <p>The same ground covered in Python — classical ciphers and modern primitives, written to understand the mechanics rather than call a library.</p>
-        <div class="foot"><span class="lang">Python</span><span class="go">Repo ↗</span></div>
+        <div class="foot"><span class="lang">Python</span><span class="meta pending" data-updated>—</span><span class="go">Repo ↗</span></div>
       </article>
 
-      <article class="card reveal">
+      <article data-repo="Maddy-s-restaurant" data-area="frontend" class="card reveal">
         <span class="no">Frontend</span>
         <h3><a href="https://github.com/madhusudhan1260/Maddy-s-restaurant">Restaurant Menu Website</a></h3>
         <p>A responsive frontend with dynamic menu categorisation and interaction handling — an exercise in layout, state and a clean interface.</p>
-        <div class="foot"><span class="lang">HTML</span><span class="go">Repo ↗</span></div>
+        <div class="foot"><span class="lang">HTML</span><span class="meta pending" data-updated>—</span><span class="go">Repo ↗</span></div>
       </article>
 
     </div>
@@ -1105,7 +1142,11 @@ a:focus-visible, button:focus-visible {
     </div>
     <div class="contact-grid reveal">
       <a href="mailto:madhuusudhann01@gmail.com">
-        <span class="k">Email</span><span class="v">madhuusudhann01@gmail.com</span>
+        <span class="k copy-row">Email
+          <button class="copy-btn" type="button" id="copyMail"
+                  data-mail="madhuusudhann01@gmail.com">Copy</button>
+        </span>
+        <span class="v">madhuusudhann01@gmail.com</span>
       </a>
       <a href="https://www.linkedin.com/in/madhusudhan1203/" target="_blank" rel="noopener">
         <span class="k">LinkedIn</span><span class="v">in/madhusudhan1203</span>
@@ -1143,12 +1184,23 @@ a:focus-visible, button:focus-visible {
   try { saved = localStorage.getItem("mr-theme"); } catch (e) { /* private mode */ }
   if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
 
-  btn.addEventListener("click", function () {
-    var current = root.getAttribute("data-theme")
-      || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    var next = current === "dark" ? "light" : "dark";
+  /* dark is the default with no attribute set, so an absent attribute
+     means dark rather than "follow the OS" */
+  function toggleTheme() {
+    var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("mr-theme", next); } catch (e) { /* ignore */ }
+  }
+
+  btn.addEventListener("click", toggleTheme);
+
+  /* T toggles the theme, unless the user is typing somewhere */
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "t" && e.key !== "T") return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var tag = (e.target.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea" || e.target.isContentEditable) return;
+    toggleTheme();
   });
 
   /* ---------- typewriter ---------- */
@@ -1330,6 +1382,122 @@ a:focus-visible, button:focus-visible {
         else if (!visible && running) { running = false; cancelAnimationFrame(rafId); }
       }, { threshold: 0 }).observe(canvas);
     }
+  })();
+
+  /* ---------- scrollspy ----------
+     Highlights the section currently under the header rather than the
+     last one clicked, so the nav still reads correctly after scrolling. */
+  (function scrollspy() {
+    var links = Array.prototype.slice.call(document.querySelectorAll(".strip-nav a"));
+    var targets = links
+      .map(function (a) {
+        return { link: a, el: document.querySelector(a.getAttribute("href")) };
+      })
+      .filter(function (t) { return t.el; });
+
+    if (!targets.length) return;
+
+    function mark() {
+      var line = window.scrollY + 140;   /* just below the sticky strip */
+      var current = null;
+      targets.forEach(function (t) {
+        if (t.el.offsetTop <= line) current = t;
+      });
+
+      /* The final section sits too close to the bottom for its top edge
+         ever to cross the line, so it would never light up. Once the
+         page is scrolled as far as it goes, the last one is the one
+         being read. */
+      var bottom = document.documentElement.scrollHeight - window.innerHeight;
+      if (bottom - window.scrollY < 4) current = targets[targets.length - 1];
+
+      links.forEach(function (a) { a.classList.remove("active"); });
+      if (current) current.link.classList.add("active");
+    }
+
+    window.addEventListener("scroll", mark, { passive: true });
+    mark();
+  })();
+
+  /* ---------- project filter ---------- */
+  (function filters() {
+    var buttons = document.querySelectorAll(".filter");
+    var cards = document.querySelectorAll(".card[data-area]");
+    if (!buttons.length) return;
+
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var want = b.getAttribute("data-filter");
+        buttons.forEach(function (o) {
+          o.setAttribute("aria-pressed", String(o === b));
+        });
+        cards.forEach(function (c) {
+          var show = want === "all" || c.getAttribute("data-area") === want;
+          c.classList.toggle("hidden", !show);
+        });
+      });
+    });
+  })();
+
+  /* ---------- copy email ---------- */
+  (function copyMail() {
+    var b = document.getElementById("copyMail");
+    if (!b || !navigator.clipboard) return;
+
+    b.addEventListener("click", function (e) {
+      /* the tile is a mailto link — don't open a mail client too */
+      e.preventDefault();
+      e.stopPropagation();
+
+      navigator.clipboard.writeText(b.getAttribute("data-mail")).then(function () {
+        b.textContent = "Copied";
+        b.classList.add("done");
+        setTimeout(function () {
+          b.textContent = "Copy";
+          b.classList.remove("done");
+        }, 1800);
+      }).catch(function () {
+        b.textContent = "Press ⌘C";
+      });
+    });
+  })();
+
+  /* ---------- live repo metadata ----------
+     Reads the public API at view time so "updated 3 days ago" stays true
+     without anyone editing this file. Unauthenticated and read-only; if
+     the rate limit is hit or the network is down the placeholders simply
+     stay blank rather than showing a stale hard-coded date. */
+  (function liveRepos() {
+    var slots = document.querySelectorAll(".card[data-repo]");
+    if (!slots.length || !window.fetch) return;
+
+    function ago(iso) {
+      var days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+      if (days <= 0) return "updated today";
+      if (days === 1) return "updated yesterday";
+      if (days < 30) return "updated " + days + "d ago";
+      var months = Math.floor(days / 30);
+      if (months < 12) return "updated " + months + "mo ago";
+      return "updated " + Math.floor(months / 12) + "y ago";
+    }
+
+    fetch("https://api.github.com/users/madhusudhan1260/repos?per_page=100&sort=updated")
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(function (repos) {
+        var byName = {};
+        repos.forEach(function (r) { byName[r.name.toLowerCase()] = r; });
+
+        slots.forEach(function (card) {
+          var repo = byName[(card.getAttribute("data-repo") || "").toLowerCase()];
+          var slot = card.querySelector("[data-updated]");
+          if (!repo || !slot) { if (slot) slot.remove(); return; }
+          slot.textContent = ago(repo.pushed_at);
+          slot.classList.remove("pending");
+        });
+      })
+      .catch(function () {
+        document.querySelectorAll("[data-updated]").forEach(function (s) { s.remove(); });
+      });
   })();
 
   /* ---------- third-party widget fallback ----------

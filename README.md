@@ -2,6 +2,12 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00C2FF,100:0e75b6&height=220&section=header&text=Madhusudhan%20Ramshetty&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=38" width="100%" alt="Header Banner"/>
 </p>
 
+<p align="center">
+  <a href="https://madhusudhan1260.github.io/madhusudhan1260/">
+    <img src="https://img.shields.io/badge/%F0%9F%9A%80_VIEW_MY_PORTFOLIO-00C2FF?style=for-the-badge&logoColor=white&labelColor=0e75b6" alt="View my portfolio" height="38"/>
+  </a>
+</p>
+
 <h1 align="center">Madhusudhan Ramshetty</h1>
 
 <h3 align="center">🚀 Full Stack Developer • AI Enthusiast</h3>
@@ -24,9 +30,6 @@
   </a>
   <a href="https://github.com/madhusudhan1260">
     <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
-  </a>
-  <a href="YOUR_RESUME_LINK">
-    <img src="https://img.shields.io/badge/Resume-Download-00C2FF?style=for-the-badge&logo=google-drive&logoColor=white" alt="Resume"/>
   </a>
 </p>
 
@@ -112,7 +115,7 @@ Computer Science Engineering student focused on building performant web applicat
         <img src="https://img.shields.io/badge/Algorithms-00C2FF?style=flat-square" />
       </p>
       <p align="center">
-        <a href="https://github.com/madhusudhan1260/avaScript-Crypto-Programs"><b>💻 Repository</b></a>
+        <a href="https://github.com/madhusudhan1260/javascript-cryptography-lab"><b>💻 Repository</b></a>
       </p>
     </td>
   </tr>
@@ -126,18 +129,18 @@ Computer Science Engineering student focused on building performant web applicat
         <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
       </p>
       <p align="center">
-        <a href="https://github.com/madhusudhan1260"><b>💻 Repository</b></a>
+        <a href="https://github.com/madhusudhan1260/Maddy-s-restaurant"><b>💻 Repository</b></a>
       </p>
     </td>
     <td width="50%" valign="top">
-      <h3 align="center">🎉 College Event Management Website</h3>
-      <p align="center">An event platform designed to simplify campus event scheduling, user registrations, and announcement updates.</p>
+      <h3 align="center">🚦 Traffic Management System</h3>
+      <p align="center">A traffic monitoring and signal-control concept built for the CodeVeda hackathon.</p>
       <p align="center">
         <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
         <img src="https://img.shields.io/badge/Web--Dev-00C2FF?style=flat-square" />
       </p>
       <p align="center">
-        <a href="https://github.com/madhusudhan1260"><b>💻 Repository</b></a>
+        <a href="https://github.com/madhusudhan1260/Codex-Traffic-management-system-"><b>💻 Repository</b></a>
       </p>
     </td>
   </tr>
@@ -167,20 +170,15 @@ Computer Science Engineering student focused on building performant web applicat
   <img src="https://streak-stats.demolab.com?user=madhusudhan1260&theme=tokyonight&hide_border=true" alt="GitHub Streak"/>
 </p>
 
-<h3 align="center">🐍 Contribution Snake</h3>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/madhusudhan1260/madhusudhan1260/output/github-contribution-grid-snake.svg" alt="Snake Animation"/>
-</p>
-
 <img src="https://user-images.githubusercontent.com/74038190/212744275-2d0d5510-4bdf-4b5b-9df3-3b69d0d4d0d0.gif" width="100%" alt="Divider"/>
 
 <h2 align="center">💻 Problem Solving Profiles</h2>
 
 <p align="center">
-  <a href="https://leetcode.com"><img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black" alt="LeetCode"/></a>
-  <a href="https://www.codechef.com"><img src="https://img.shields.io/badge/CodeChef-5B4638?style=for-the-badge&logo=codechef&logoColor=white" alt="CodeChef"/></a>
-  <a href="https://www.hackerrank.com"><img src="https://img.shields.io/badge/HackerRank-00EA64?style=for-the-badge&logo=hackerrank&logoColor=black" alt="HackerRank"/></a>
-  <a href="https://www.hackerearth.com"><img src="https://img.shields.io/badge/HackerEarth-323754?style=for-the-badge&logo=hackerearth&logoColor=white" alt="HackerEarth"/></a>
+  <a href="https://leetcode.com/u/madhusudhan_1260/"><img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black" alt="LeetCode"/></a>
+  <a href="https://www.codechef.com/users/many_bears_11"><img src="https://img.shields.io/badge/CodeChef-5B4638?style=for-the-badge&logo=codechef&logoColor=white" alt="CodeChef"/></a>
+  <a href="https://www.hackerrank.com/profile/madhusudhanBTEC1"><img src="https://img.shields.io/badge/HackerRank-00EA64?style=for-the-badge&logo=hackerrank&logoColor=black" alt="HackerRank"/></a>
+  <a href="https://www.hackerearth.com/@madhuusudhann01/"><img src="https://img.shields.io/badge/HackerEarth-323754?style=for-the-badge&logo=hackerearth&logoColor=white" alt="HackerEarth"/></a>
 </p>
 
 <img src="https://user-images.githubusercontent.com/74038190/212744275-2d0d5510-4bdf-4b5b-9df3-3b69d0d4d0d0.gif" width="100%" alt="Divider"/>
