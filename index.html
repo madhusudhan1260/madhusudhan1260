@@ -42,6 +42,9 @@
   --cyan-wash:  rgba(0, 168, 204, 0.10);
   --magenta-wash: rgba(184, 31, 87, 0.09);
   --glow:       rgba(0, 168, 204, 0.30);
+  --dot:        rgba(11, 20, 24, 0.13);
+  --wash-a:     rgba(0, 168, 204, 0.16);
+  --wash-b:     rgba(124, 58, 237, 0.13);
 
   --font-display: "IBM Plex Sans Condensed", "Helvetica Neue", Arial, sans-serif;
   --font-body:    "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -63,6 +66,9 @@
     --cyan-wash: rgba(0, 194, 255, 0.12);
     --magenta-wash: rgba(255, 107, 157, 0.12);
     --glow: rgba(0, 194, 255, 0.42);
+    --dot: rgba(154, 190, 205, 0.13);
+    --wash-a: rgba(0, 194, 255, 0.13);
+    --wash-b: rgba(124, 58, 237, 0.16);
     color-scheme: dark;
   }
 }
@@ -76,6 +82,9 @@
   --cyan-wash: rgba(0, 194, 255, 0.12);
   --magenta-wash: rgba(255, 107, 157, 0.12);
   --glow: rgba(0, 194, 255, 0.42);
+  --dot: rgba(154, 190, 205, 0.13);
+  --wash-a: rgba(0, 194, 255, 0.13);
+  --wash-b: rgba(124, 58, 237, 0.16);
   color-scheme: dark;
 }
 :root[data-theme="light"] {
@@ -87,6 +96,9 @@
   --cyan-wash: rgba(0, 168, 204, 0.10);
   --magenta-wash: rgba(184, 31, 87, 0.09);
   --glow: rgba(0, 168, 204, 0.30);
+  --dot: rgba(11, 20, 24, 0.13);
+  --wash-a: rgba(0, 168, 204, 0.16);
+  --wash-b: rgba(124, 58, 237, 0.13);
   color-scheme: light;
 }
 
@@ -104,10 +116,56 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image:
-    linear-gradient(var(--rule-soft) 1px, transparent 1px),
-    linear-gradient(90deg, var(--rule-soft) 1px, transparent 1px);
-  background-size: 68px 68px;
+}
+
+/* ---------- page ground ----------
+   The square graph-paper grid read as a wireframe rather than a
+   finished surface. Replaced with a fine dot matrix over two slow
+   colour washes: still technical, but it sits behind the content
+   instead of competing with the hairline boxes drawn on top of it. */
+.ground {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--paper);
+}
+
+.ground::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 25%, transparent 88%);
+  mask-image: radial-gradient(120% 90% at 50% 0%, #000 25%, transparent 88%);
+}
+
+.ground .wash {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform;
+}
+.ground .w1 {
+  width: 52vw; height: 52vw; min-width: 480px; min-height: 480px;
+  top: -12%; left: -10%;
+  background: radial-gradient(circle, var(--wash-a), transparent 68%);
+  animation: driftA 34s ease-in-out infinite alternate;
+}
+.ground .w2 {
+  width: 46vw; height: 46vw; min-width: 420px; min-height: 420px;
+  bottom: -14%; right: -8%;
+  background: radial-gradient(circle, var(--wash-b), transparent 68%);
+  animation: driftB 42s ease-in-out infinite alternate;
+}
+@keyframes driftA {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(7%, 9%, 0) scale(1.16); }
+}
+@keyframes driftB {
+  from { transform: translate3d(0, 0, 0) scale(1.1); }
+  to   { transform: translate3d(-8%, -7%, 0) scale(0.94); }
 }
 
 h1, h2, h3 { margin: 0; font-family: var(--font-display); text-wrap: balance; }
@@ -125,73 +183,88 @@ a:focus-visible, button:focus-visible {
 
 .shell { max-width: var(--shell); margin: 0 auto; padding: 0 var(--step); }
 
-/* ============ ANIMATED WAVE BANNER ============ */
+/* ============ HERO: LIVE ROUTE NETWORK ============
+   A canvas of drifting waypoints joined by great-circle links, with
+   traffic running along them. It replaces a flat blue gradient with
+   something that belongs to the subject: this is what his flight
+   planning software is looking at. Drawn on canvas rather than as
+   hand-authored SVG so the node count can scale with the viewport. */
+
 .banner {
   position: relative;
-  height: clamp(190px, 26vw, 260px);
+  min-height: clamp(300px, 44vh, 430px);
   display: grid;
   place-items: center;
   overflow: hidden;
-  background: linear-gradient(120deg, #00c2ff 0%, #0e75b6 55%, #0a4c7d 100%);
   isolation: isolate;
+  background:
+    radial-gradient(1200px 520px at 18% 0%,   rgba(0, 194, 255, 0.28), transparent 62%),
+    radial-gradient(900px 620px at 88% 18%,   rgba(124, 58, 237, 0.30), transparent 60%),
+    radial-gradient(1000px 560px at 60% 108%, rgba(20, 184, 166, 0.24), transparent 62%),
+    linear-gradient(155deg, #050b16 0%, #0a1830 46%, #0d2440 100%);
 }
 
-.banner .waves {
+.banner canvas {
   position: absolute;
-  inset: auto 0 -2px 0;
-  width: 200%;
-  height: 62%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
 }
 
-.banner .waves path { fill: var(--paper); }
-
-.wave-a { animation: swell 11s ease-in-out infinite alternate; }
-.wave-b { animation: swell 8s ease-in-out infinite alternate-reverse; opacity: 0.55; }
-
-@keyframes swell {
-  from { transform: translateX(0)      translateY(0); }
-  to   { transform: translateX(-24px)  translateY(7px); }
+/* a slow horizon sweep, like a radar bar crossing the field */
+.banner::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 46%;
+  background: linear-gradient(90deg, transparent, rgba(0, 194, 255, 0.11), transparent);
+  animation: horizon 9s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+@keyframes horizon {
+  0%, 100% { transform: translateX(-60%); }
+  50%      { transform: translateX(180%); }
 }
 
-/* drifting light across the banner */
+/* the ground fades the canvas into the page so there is no hard seam */
 .banner::after {
   content: "";
   position: absolute;
-  inset: -40% -10%;
-  background: radial-gradient(closest-side, rgba(255,255,255,0.34), transparent 70%);
-  animation: rove 13s ease-in-out infinite alternate;
+  inset: auto 0 0 0;
+  height: 46%;
+  background: linear-gradient(180deg, transparent, var(--paper));
   pointer-events: none;
-  z-index: 0;
-}
-@keyframes rove {
-  from { transform: translate3d(-22%, -8%, 0) scale(1); }
-  to   { transform: translate3d(24%, 10%, 0) scale(1.25); }
+  z-index: 2;
 }
 
 .banner-name {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: center;
-  padding: 0 20px 34px;
+  padding: 0 20px 30px;
   color: #fff;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(30px, 6.4vw, 60px);
-  letter-spacing: 0.01em;
+  font-size: clamp(32px, 6.8vw, 66px);
+  line-height: 1.02;
+  letter-spacing: 0.005em;
   text-transform: uppercase;
-  text-shadow: 0 4px 26px rgba(3, 32, 48, 0.42);
+  text-shadow: 0 6px 34px rgba(2, 10, 22, 0.6);
   animation: fadeUp 1s 0.15s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
 .banner-sub {
   display: block;
-  margin-top: 8px;
+  margin-top: 12px;
   font-family: var(--font-mono);
-  font-size: clamp(10.5px, 1.5vw, 13px);
+  font-size: clamp(10px, 1.5vw, 12.5px);
   font-weight: 500;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(190, 232, 255, 0.92);
   text-shadow: none;
   animation: fadeUp 1s 0.35s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
@@ -752,15 +825,17 @@ a:focus-visible, button:focus-visible {
 <body>
 
 <!-- ============ WAVE BANNER ============ -->
+<div class="ground" aria-hidden="true">
+  <span class="wash w1"></span>
+  <span class="wash w2"></span>
+</div>
+
 <div class="banner">
+  <canvas id="net" aria-hidden="true"></canvas>
   <div class="banner-name">
     Madhusudhan Ramshetty
     <span class="banner-sub">Building real-world solutions through code</span>
   </div>
-  <svg class="waves" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
-    <path class="wave-b" d="M0,120 C180,180 360,60 540,100 C720,140 900,50 1080,90 C1260,130 1380,110 1440,100 L1440,200 L0,200 Z"/>
-    <path class="wave-a" d="M0,150 C200,100 380,175 560,145 C740,115 920,165 1100,140 C1280,115 1390,145 1440,150 L1440,200 L0,200 Z"/>
-  </svg>
 </div>
 
 <!-- ============ TOP STRIP ============ -->
@@ -772,6 +847,7 @@ a:focus-visible, button:focus-visible {
       <a href="#now">Now</a>
       <a href="#work">Work</a>
       <a href="#credentials">Credentials</a>
+      <a href="#profiles">Profiles</a>
       <a href="#contact">Contact</a>
     </nav>
     <button class="theme-btn" id="themeToggle" type="button" aria-label="Switch colour theme">Theme</button>
@@ -815,6 +891,7 @@ a:focus-visible, button:focus-visible {
 
     <div class="hero-data" role="list">
       <div class="cell" role="listitem"><span class="k">Discipline</span><span class="v">B.Tech CSE</span></div>
+      <div class="cell" role="listitem"><span class="k">Batch</span><span class="v mono">2024–28</span></div>
       <div class="cell" role="listitem"><span class="k">Institution</span><span class="v">Alliance University</span></div>
       <div class="cell" role="listitem"><span class="k">Focus</span><span class="v">Full Stack &amp; AI</span></div>
       <div class="cell" role="listitem"><span class="k">Based</span><span class="v">Bengaluru, IN</span></div>
@@ -987,7 +1064,7 @@ a:focus-visible, button:focus-visible {
   <!-- ============ CREDENTIALS ============ -->
   <section class="section" id="credentials">
     <div class="sec-head reveal">
-      <h2>Credentials</h2><span class="rule"></span><span class="count">05</span>
+      <h2>Credentials</h2><span class="rule"></span><span class="count">04</span>
     </div>
     <div class="field reveal">
       <span class="tag">Certifications &amp; honours</span>
@@ -997,6 +1074,27 @@ a:focus-visible, button:focus-visible {
         <div class="cert"><span><b>The University of Sydney</b> — professional and academic certification.</span><span class="kind">Certificate</span></div>
         <div class="cert"><span><b>Universiteit Leiden</b> — advanced foundational learning certificate.</span><span class="kind">Certificate</span></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ CODING PROFILES ============ -->
+  <section class="section" id="profiles">
+    <div class="sec-head reveal">
+      <h2>Problem Solving</h2><span class="rule"></span><span class="count">05 &nbsp;·&nbsp; 4 platforms</span>
+    </div>
+    <div class="contact-grid reveal">
+      <a href="https://leetcode.com/u/madhusudhan_1260/" target="_blank" rel="noopener">
+        <span class="k">LeetCode</span><span class="v">madhusudhan_1260</span>
+      </a>
+      <a href="https://www.codechef.com/users/many_bears_11" target="_blank" rel="noopener">
+        <span class="k">CodeChef</span><span class="v">many_bears_11</span>
+      </a>
+      <a href="https://www.hackerrank.com/profile/madhusudhanBTEC1" target="_blank" rel="noopener">
+        <span class="k">HackerRank</span><span class="v">madhusudhanBTEC1</span>
+      </a>
+      <a href="https://www.hackerearth.com/@madhuusudhann01/" target="_blank" rel="noopener">
+        <span class="k">HackerEarth</span><span class="v">madhuusudhann01</span>
+      </a>
     </div>
   </section>
 
@@ -1079,6 +1177,161 @@ a:focus-visible, button:focus-visible {
     })();
   }
 
+  /* ---------- hero: live route network ----------
+     Waypoints drift, nearby ones link up, and traffic runs along the
+     links. Node count scales with area so a phone is not asked to draw
+     a laptop's worth of geometry, and the loop stops entirely once the
+     hero scrolls away — an offscreen canvas repainting at 60fps is the
+     classic way these headers quietly drain a battery. */
+  (function routeNetwork() {
+    var canvas = document.getElementById("net");
+    if (!canvas || reduced) return;
+
+    var ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    var W = 0, H = 0, dpr = 1;
+    var nodes = [], flights = [];
+    var LINK = 132;          /* px within which two waypoints connect */
+    var running = true, rafId = null;
+
+    function size() {
+      var rect = canvas.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = rect.width; H = rect.height;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      build();
+    }
+
+    function build() {
+      var target = Math.round(Math.min(78, Math.max(26, (W * H) / 13000)));
+      nodes = [];
+      for (var i = 0; i < target; i++) {
+        nodes.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+          r: Math.random() * 1.5 + 0.9,
+          /* a few waypoints are "major" and get a halo */
+          major: Math.random() < 0.13
+        });
+      }
+      flights = [];
+      for (var f = 0; f < Math.max(3, Math.round(target / 11)); f++) newFlight();
+    }
+
+    function newFlight() {
+      if (nodes.length < 2) return;
+      var a = (Math.random() * nodes.length) | 0;
+      var b = (Math.random() * nodes.length) | 0;
+      if (a === b) b = (b + 1) % nodes.length;
+      flights.push({ a: a, b: b, t: 0, speed: 0.0022 + Math.random() * 0.0034 });
+    }
+
+    function draw() {
+      if (!running) return;
+      ctx.clearRect(0, 0, W, H);
+
+      var i, j, n, m, dx, dy, d;
+
+      /* links */
+      for (i = 0; i < nodes.length; i++) {
+        n = nodes[i];
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < -20) n.x = W + 20; else if (n.x > W + 20) n.x = -20;
+        if (n.y < -20) n.y = H + 20; else if (n.y > H + 20) n.y = -20;
+
+        for (j = i + 1; j < nodes.length; j++) {
+          m = nodes[j];
+          dx = n.x - m.x; dy = n.y - m.y;
+          d = Math.sqrt(dx * dx + dy * dy);
+          if (d > LINK) continue;
+          ctx.globalAlpha = (1 - d / LINK) * 0.34;
+          ctx.strokeStyle = "#7fd8f5";
+          ctx.lineWidth = 0.7;
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y);
+          ctx.lineTo(m.x, m.y);
+          ctx.stroke();
+        }
+      }
+
+      /* waypoints */
+      for (i = 0; i < nodes.length; i++) {
+        n = nodes[i];
+        if (n.major) {
+          ctx.globalAlpha = 0.16;
+          ctx.fillStyle = "#00c2ff";
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r * 5.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = n.major ? 0.95 : 0.62;
+        ctx.fillStyle = n.major ? "#9fe8ff" : "#cfe9f4";
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      /* traffic running between waypoints */
+      for (i = flights.length - 1; i >= 0; i--) {
+        var fl = flights[i];
+        var A = nodes[fl.a], B = nodes[fl.b];
+        if (!A || !B) { flights.splice(i, 1); newFlight(); continue; }
+
+        fl.t += fl.speed;
+        if (fl.t >= 1) { flights.splice(i, 1); newFlight(); continue; }
+
+        var px = A.x + (B.x - A.x) * fl.t;
+        var py = A.y + (B.y - A.y) * fl.t;
+
+        /* the trail behind it */
+        var tt = Math.max(0, fl.t - 0.09);
+        ctx.globalAlpha = 0.5;
+        var grad = ctx.createLinearGradient(
+          A.x + (B.x - A.x) * tt, A.y + (B.y - A.y) * tt, px, py);
+        grad.addColorStop(0, "rgba(0,194,255,0)");
+        grad.addColorStop(1, "rgba(0,194,255,0.85)");
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(A.x + (B.x - A.x) * tt, A.y + (B.y - A.y) * tt);
+        ctx.lineTo(px, py);
+        ctx.stroke();
+
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(px, py, 1.9, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 1;
+      rafId = requestAnimationFrame(draw);
+    }
+
+    size();
+    draw();
+
+    var rt;
+    window.addEventListener("resize", function () {
+      clearTimeout(rt);
+      rt = setTimeout(size, 180);
+    });
+
+    /* stop drawing once the hero is off screen */
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        var visible = entries[0].isIntersecting;
+        if (visible && !running) { running = true; draw(); }
+        else if (!visible && running) { running = false; cancelAnimationFrame(rafId); }
+      }, { threshold: 0 }).observe(canvas);
+    }
+  })();
+
   /* ---------- third-party widget fallback ----------
      The streak and contribution graphs come from public services that do
      go down — github-readme-stats was returning 503 while this page was
@@ -1104,7 +1357,6 @@ a:focus-visible, button:focus-visible {
 
   /* ---------- scroll progress, banner parallax, back to top ---------- */
   var bar = document.getElementById("progress");
-  var waves = document.querySelector(".banner .waves");
   var nameBlock = document.querySelector(".banner-name");
   var toTop = document.getElementById("totop");
   var ticking = false;
@@ -1116,7 +1368,6 @@ a:focus-visible, button:focus-visible {
 
     /* banner drifts at half speed and fades as it leaves */
     if (!reduced && y < 420) {
-      if (waves) waves.style.transform = "translateY(" + (y * 0.24) + "px)";
       if (nameBlock) {
         nameBlock.style.transform = "translateY(" + (y * 0.32) + "px)";
         nameBlock.style.opacity = String(Math.max(0, 1 - y / 300));
