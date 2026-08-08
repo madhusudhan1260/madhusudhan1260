@@ -590,6 +590,28 @@ a:focus-visible, button:focus-visible {
   color: var(--magenta); background: var(--magenta-wash);
   padding: 3px 8px;
 }
+.card .live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--paper);
+  background: var(--cyan);
+  padding: 4px 10px;
+  transition: filter 0.16s, transform 0.16s;
+}
+.card .live:hover { filter: brightness(1.12); transform: translateY(-1px); }
+
+/* the pulsing dot marks it as something actually running, not a repo */
+.card .live i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--paper);
+  animation: livedot 1.9s ease-in-out infinite;
+}
+@keyframes livedot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
 .card .go {
   margin-left: auto;
   font-family: var(--font-mono); font-size: 11.5px; font-weight: 600;
@@ -1063,8 +1085,12 @@ a:focus-visible, button:focus-visible {
       <article data-repo="Navlog-convertor-website-2.0" data-area="aviation" class="card flagship reveal">
         <span class="no">Aviation · Flagship</span>
         <h3><a href="https://github.com/madhusudhan1260/Navlog-convertor-website-2.0">NavLog Converter 2.0</a></h3>
-        <p>Parses ForeFlight HTML exports into structured JSON, then renders operator-specific operational flight plans as print-ready PDFs — fuel policy, alternates, enroute winds and ATC plan.</p>
-        <div class="foot"><span class="lang">Python</span><span class="lang">React</span><span class="meta pending" data-updated>—</span><span class="go">Repo ↗</span></div>
+        <p>Parses ForeFlight HTML exports into structured JSON, then renders operator-specific operational flight plans as print-ready PDFs — fuel policy, alternates, enroute winds and ATC plan. Deployed and running, with a Flask API behind token auth.</p>
+        <div class="foot">
+          <a class="live" href="https://navlog-convertor-website-2-0-me9x.vercel.app" target="_blank" rel="noopener"><i></i>Live app</a>
+          <span class="lang">Python</span><span class="lang">React</span>
+          <span class="meta pending" data-updated>—</span><span class="go">Repo ↗</span>
+        </div>
       </article>
 
       <article data-repo="Navlog_Project" data-area="aviation" class="card reveal">

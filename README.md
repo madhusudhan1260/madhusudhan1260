@@ -6,6 +6,14 @@
   <a href="https://madhusudhan1260.github.io/madhusudhan1260/">
     <img src="https://img.shields.io/badge/%F0%9F%9A%80_VIEW_MY_PORTFOLIO-00C2FF?style=for-the-badge&logoColor=white&labelColor=0e75b6" alt="View my portfolio" height="38"/>
   </a>
+  <a href="https://madhusudhan1260.github.io/madhusudhan1260/#contact">
+    <img src="https://img.shields.io/badge/%E2%9C%89_GET_IN_TOUCH-0e75b6?style=for-the-badge&logoColor=white&labelColor=072a45" alt="Get in touch" height="38"/>
+  </a>
+</p>
+
+<p align="center">
+  <b>🌐 Portfolio:</b> <a href="https://madhusudhan1260.github.io/madhusudhan1260/">madhusudhan1260.github.io/madhusudhan1260</a><br/>
+  <b>✈️ Live project:</b> <a href="https://navlog-convertor-website-2-0-me9x.vercel.app">EFLIGHT AI NavLog Converter</a>
 </p>
 
 <h1 align="center">Madhusudhan Ramshetty</h1>
