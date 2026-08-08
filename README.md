@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://madhusudhan1260.github.io">
+    <img src="https://img.shields.io/badge/🌐%20VISIT%20MY%20PORTFOLIO-58A6FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Visit My Portfolio"/>
+  </a>
+</p>
+
 <!--
   ==================================================================
   PROFILE README — the portfolio site, translated.
