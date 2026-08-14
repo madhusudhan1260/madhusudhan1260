@@ -83,8 +83,8 @@ all of it.
 
 **🛠 Building**
 
+- **HackRadar** — a hackathon + internship aggregator with AI-assisted matching, deployed on Render
 - **ForeFlight NavLog Converter** — parses flight data exports and generates print-ready OPS flight plans in four operator formats
-- **Smart Traffic Management System** — a computer-vision concept for AI-driven traffic monitoring
 
 </td>
 <td width="50%" valign="top">
@@ -104,13 +104,13 @@ all of it.
 ## Stack
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=python,js,react,flask,html,css,c,cpp,git,github,vscode&theme=dark" alt="Tech stack"/>
+  <img src="https://skillicons.dev/icons?i=python,js,react,fastapi,flask,postgres,html,css,c,cpp,git,github,vscode&theme=dark" alt="Tech stack"/>
 </p>
 
 <p align="center">
   <code>Parsing</code> · <code>PDF generation</code> · <code>REST APIs</code> ·
   <code>React state</code> · <code>Data transforms</code> · <code>Cryptography</code> ·
-  <code>Responsive UI</code> · <code>Git workflows</code>
+  <code>Responsive UI</code> · <code>Git workflows</code> · <code>Scheduled jobs</code>
 </p>
 
 ---
@@ -121,7 +121,23 @@ all of it.
 <tr>
 <td width="50%" valign="top">
 
-### ✈️ NavLog Converter 2.0 &nbsp;<sup>`FLAGSHIP`</sup>
+### 📡 HackRadar &nbsp;<sup>`FLAGSHIP`</sup>
+
+A full-stack hackathon + internship aggregator. Real collectors (Devpost, MLH,
+Remotive, an open internship tracker), AI-assisted form-fill matching, and a
+skill-gap analysis that re-scores your actual profile instead of guessing.
+FastAPI + React, deployed on Render with scheduled ingestion and deadline
+email alerts.
+
+<a href="https://hackradar-web.onrender.com"><img src="https://img.shields.io/badge/●_LIVE_APP-00C2FF?style=flat-square&labelColor=070D11" alt="Live app"/></a>
+<a href="https://github.com/madhusudhan1260/HackRadar"><img src="https://img.shields.io/badge/Repo-0D181E?style=flat-square&logo=github&logoColor=white" alt="Repo"/></a>
+<img src="https://img.shields.io/badge/FastAPI-0D181E?style=flat-square&logo=fastapi&logoColor=3FC9E4" alt="FastAPI"/>
+<img src="https://img.shields.io/badge/React-0D181E?style=flat-square&logo=react&logoColor=3FC9E4" alt="React"/>
+
+</td>
+<td width="50%" valign="top">
+
+### ✈️ NavLog Converter 2.0 &nbsp;<sup>`AVIATION`</sup>
 
 Parses ForeFlight HTML exports into structured JSON, then renders
 operator-specific operational flight plans as print-ready PDFs — fuel policy,
@@ -129,11 +145,13 @@ alternates, enroute winds and ATC plan. Deployed and running, with a Flask API
 behind token auth.
 
 <a href="https://navlog-convertor-website-2-0-me9x.vercel.app"><img src="https://img.shields.io/badge/●_LIVE_APP-00C2FF?style=flat-square&labelColor=070D11" alt="Live app"/></a>
-<a href="https://github.com/madhusudhan1260/Navlog-convertor-website-2.0"><img src="https://img.shields.io/badge/Repo-0D181E?style=flat-square&logo=github&logoColor=white" alt="Repo"/></a>
 <img src="https://img.shields.io/badge/Python-0D181E?style=flat-square&logo=python&logoColor=3FC9E4" alt="Python"/>
 <img src="https://img.shields.io/badge/React-0D181E?style=flat-square&logo=react&logoColor=3FC9E4" alt="React"/>
 
 </td>
+</tr>
+
+<tr>
 <td width="50%" valign="top">
 
 ### 🛩 NavLog Project
@@ -146,9 +164,6 @@ data and ATC details.
 <img src="https://img.shields.io/badge/Python-0D181E?style=flat-square&logo=python&logoColor=3FC9E4" alt="Python"/>
 
 </td>
-</tr>
-
-<tr>
 <td width="50%" valign="top">
 
 ### 🚦 Traffic Management System
@@ -160,6 +175,9 @@ hackathon, focused on responsive control logic and a clear operator interface.
 <img src="https://img.shields.io/badge/HTML5-0D181E?style=flat-square&logo=html5&logoColor=FF6B9D" alt="HTML5"/>
 
 </td>
+</tr>
+
+<tr>
 <td width="50%" valign="top">
 
 ### 🔐 JavaScript Cryptography Lab
@@ -171,9 +189,6 @@ first principles in modern JavaScript.
 <img src="https://img.shields.io/badge/JavaScript-0D181E?style=flat-square&logo=javascript&logoColor=FF6B9D" alt="JavaScript"/>
 
 </td>
-</tr>
-
-<tr>
 <td width="50%" valign="top">
 
 ### 🔒 Python Cryptography
@@ -185,7 +200,10 @@ written to understand the mechanics rather than call a library.
 <img src="https://img.shields.io/badge/Python-0D181E?style=flat-square&logo=python&logoColor=3FC9E4" alt="Python"/>
 
 </td>
-<td width="50%" valign="top">
+</tr>
+
+<tr>
+<td width="100%" colspan="2" valign="top">
 
 ### 🍽 Restaurant Menu Website
 
