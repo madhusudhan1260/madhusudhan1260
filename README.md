@@ -123,11 +123,12 @@ all of it.
 
 ### 📡 HackRadar &nbsp;<sup>`FLAGSHIP`</sup>
 
-A full-stack hackathon + internship aggregator. Real collectors (Devpost, MLH,
-Remotive, an open internship tracker), AI-assisted form-fill matching, and a
-skill-gap analysis that re-scores your actual profile instead of guessing.
-FastAPI + React, deployed on Render with scheduled ingestion and deadline
-email alerts.
+A full-stack hackathon + internship aggregator with its own application
+tracker. Real collectors (Devpost, MLH, Remotive, Adzuna for India, an open
+internship tracker), AI-assisted form-fill matching, deadline alerts across
+both hackathons and internships, and a skill-gap analysis that re-scores
+your actual profile instead of guessing. FastAPI + React, deployed on
+Render, with Google/GitHub sign-in.
 
 <a href="https://hackradar-web.onrender.com"><img src="https://img.shields.io/badge/●_LIVE_APP-00C2FF?style=flat-square&labelColor=070D11" alt="Live app"/></a>
 <a href="https://github.com/madhusudhan1260/HackRadar"><img src="https://img.shields.io/badge/Repo-0D181E?style=flat-square&logo=github&logoColor=white" alt="Repo"/></a>
